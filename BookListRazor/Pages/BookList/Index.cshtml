@@ -1,0 +1,60 @@
+﻿@page
+@model BookListRazor.Pages.BookList.IndexModel
+@{
+    ViewData["Title"] = "لیست کتاب";
+}
+
+<br />
+<div class="container row p-0 m-0">
+    <div class="col-9">
+        <h2 class="text-info">لیست کتاب ها</h2>
+    </div>
+    <div class="col-3">
+        <a class="btn btn-info form-control text-white" asp-page="Create">نام کتاب جدید</a>
+    </div>
+    <div class="col-12 border text-center" p-3 mt-3>
+        @using (Html.BeginForm(FormMethod.Post))
+        {
+            @if (Model.Books.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            @*@Html.DisplayFor(m => m.Books.FirstOrDefault().Name)*@
+                            @*<label asp-for="Books.FirstOrDefault().Name"></label>*@
+                            <label>نام کتاب</label>
+                        </th>
+                        <th>
+                            <label>نام نویسنده</label>
+                        </th>
+                        <th>
+                            <label>شابک</label>
+                        </th>
+                    </tr>
+                    @foreach (var item in Model.Books)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.Author)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.ISBN)
+                            </td>
+                            <td>
+                                <button class="btn btn-danger btn-sm">حذف</button>
+                                <a class="btn btn-warning btn-sm text-white">ویرایش</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>رکوردی برای نمایش وجود ندارد</p>
+            }
+        }
+    </div>
+</div>

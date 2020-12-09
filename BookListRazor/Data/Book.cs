@@ -11,8 +11,13 @@ namespace BookListRazor.Data
         [Key]
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "نام کتاب را وارد کنید")]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = "نام نویسنده را وارد کنید")]
         public string Author { get; set; }
+
+        [Required(ErrorMessage = "شماره شابک را وارد کنید")]
+        public string ISBN { get; set; }
     }
 }

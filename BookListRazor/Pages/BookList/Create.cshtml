@@ -1,0 +1,56 @@
+﻿@page
+@model BookListRazor.Pages.BookList.CreateModel
+@{
+    ViewData["Title"] = "نام کتاب جدید";
+}
+
+<br />
+<h2 class="text-info">نام کتاب جدید</h2>
+<br />
+
+<div class="border container" style="padding:30px;">
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label>نام کتاب</label>
+            </div>
+            <div class="col-6 text-right">
+                <input type="text" asp-for="Books.Name" class="form-control" />
+                <span class="text-danger" asp-validation-for="Books.Name"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label>نام نویسنده</label>
+            </div>
+            <div class="col-6 text-right">
+                <input type="text" asp-for="Books.Author" class="form-control" />
+                <span class="text-danger" asp-validation-for="Books.Author"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label>شابک</label>
+            </div>
+            <div class="col-6 text-right">
+                <input type="text" asp-for="Books.ISBN" class="form-control" />
+                <span class="text-danger" asp-validation-for="Books.ISBN"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3 offset-4">
+                <input class="btn btn-success btn-block form-control" value="ثبت اطلاعات" type="submit" class="form-control" />
+            </div>
+            <div class="col-3 ">
+                <a asp-page="Index" class="btn btn-secondary form-control">بازگشت به لیست کتاب ها</a>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+ }
+
