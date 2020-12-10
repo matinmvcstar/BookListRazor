@@ -1,0 +1,66 @@
+﻿var dataTable;
+
+$(document).ready(function () {
+    loadDataTable();
+});
+
+function loadDataTable() {
+    dataTable = $('#DT_load').DataTable({
+        "ajax": {
+            "url": "/api/Book",
+            "type": "GET",
+            "datatype": "json"
+        },
+        "columns": [
+            { "data": "name", "width": "20%" },
+            { "data": "author", "width": "20%" },
+            { "data": "isbn", "width": "20%" },
+            {
+                "data": "id",
+                "render": function (data) {
+                    return `<div class="text-center" dir="rtl">
+                    <a href="/BookList/Upsert?id=${data}" class='btn btn-success text-white' style='cursor:pointer; width:100px;'>
+                       ویرایش
+                    </a>
+                    &nbsp;
+                    <button class='btn btn-danger text-white' style='cursor:pointer; width:100px;'
+                        onclick=Delete('/api/Book?id=${data}')>
+                       حذف
+                    </button>
+                    </div>`;
+                }, "width": "40%"
+            }
+        ],
+        "language": {
+            "emptyTable": "رکوردی برای نمایش وجود ندارد"
+        },
+        "width": "100%"
+    });
+}
+
+function Delete(url) {
+    swal({
+        title: "آیا مطمئن هستید؟",
+        text: "بعد از حذف امکان بازگردانی اطلاعات امکان پذیر نیست",
+        icon: "warning",
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'بلی، حذف گردد',
+        dangerMode: true
+    }).then((result) => {
+        if (result) {
+            $.ajax({
+                type: "DELETE",
+                url: url,
+                success: function(data) {
+                    if(data.success) {
+                        toastr.success(data.message);
+                        dataTable.ajax.reload();
+                    }
+                    else {
+                        toastr.error(data.message);
+                    }
+                }
+            });
+        }
+    });
+}

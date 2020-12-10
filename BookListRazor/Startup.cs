@@ -33,6 +33,8 @@ namespace BookListRazor
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
         }
 
@@ -61,6 +63,7 @@ namespace BookListRazor
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
         }
